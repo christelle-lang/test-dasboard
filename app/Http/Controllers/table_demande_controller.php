@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Demande;
+use App\Models\Client;
+use App\Models\Camion;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
@@ -12,11 +15,20 @@ use Illuminate\Pagination\Paginator;
 class table_demande_controller extends Controller
 {
     public function table_demande(){
+       
         $table_demande = DB::table('demandes')->get();
-        $data =['table_demande' => $table_demande
-    ];
-        return view('demande.table_demande', $data);
+   
+ 
+         $nombreNouvellesDemandes = Demande::where('newDemande', 0)->count();
+    
+        return view('demande.table_demande', compact('table_demande','nombreNouvellesDemandes'));
     }
+    public function ajouter_demande_form(){
+       
+      
+        return view('demande.ajouter_demande');
+    }
+
 
 
      public function recherche_demande(Request $request)
@@ -102,5 +114,32 @@ class table_demande_controller extends Controller
 //            return redirect()->route('table_client');
 
 // }
+public function detail_demandes_client($id){
+    $demande = Demande::where('id', $id)->first();
+    $idClient = $demande->idClient;
+    $client = Client::find($idClient);
+    $idCamion=$demande->idCamion;
+    $camion = Camion::find($idCamion);
+    return view("demande.detail_client",compact('client','camion','demande'));
 
+}
+public function detail_demandes($id){
+    $demande = Demande::where('id', $id)->first();
+    $idClient = $demande->idClient;
+    $client = Client::find($idClient);
+    $idCamion=$demande->idCamion;
+    $camion = Camion::find($idCamion);
+
+    $demande->newDemande = 1;
+    $demande->save();
+    return view("demande.detail_demande",compact('client','camion','demande'));
+}
+public function detail_demandes_camion($id){
+    $demande = Demande::where('id', $id)->first();
+    $idClient = $demande->idClient;
+    $client = Client::find($idClient);
+    $idCamion=$demande->idCamion;
+    $camion = Camion::find($idCamion);
+    return view("demande.detail_camion",compact('client','camion','demande'));
+}
 }

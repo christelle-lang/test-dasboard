@@ -60,15 +60,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="common_input mb_15">
-                                        <input type="text" placeholder="Mot de passe" name="password" value="{{ $conducteur_modifie->motDePasseConducteur}}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="common_input mb_15">
-                                        <input type="text" placeholder="statut" name="statut" value="{{ $conducteur_modifie->statut}}">
-                                    </div>
-                                </div>
+                       
+                                    <div class="common_select mb_15">
+                                      <select class="custom-select custom-select-lg  mb_15" id="inlineFormCustomSelectPref" name="statut">
+                                        <option {{$conducteur_modifie->statut=='Activé' ? 'selected':''}} value="Activé">Activé</option>
+                                        <option  {{$conducteur_modifie->statut=='Désactivé' ? 'selected':''}} value="Désactivé">Désactivé</option>
+                                      </select>  
+                                    </div> 
+                                </div> 
                             </div>
                             <div class="modal-footer">
                                 <a href="{{route('modification_annuler_conducteur')}}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button> </a>

@@ -42,10 +42,10 @@
            </div>
            <button > <i class="ti-search"></i> </button>
            </div>
-           </div>
-           <div class=" ms-2">
+           </div>  <div class=" ms-2">
            <button type="submit" data-toggle="modal" data-target="#addcategory" class="btn_1">Rechercher</button>
            </div>
+         
            </div>
            </div>
            </form>
@@ -71,7 +71,6 @@
                         <th scope="col">Adresse</th>
                         <th scope="col">Numéro 1</th>
                         <th scope="col">Numéro 2</th>
-                        <th scope="col">Statut</th>
                         <th scope="col">Action</th>
 
                     </tr>
@@ -88,19 +87,7 @@
                     <td>{{ $table_clients->adresseClient }}</td>
                     <td>{{ $table_clients->numTelClient }}</td>
                     <td>{{ $table_clients->numTelClient2 }}</td>
-                    @if ($table_clients->statut == 'Activé')
-                    <td><a href="#" class="status_btn">Activé</a></td> 
-                @else 
-                   <td><a href="#" class="status_btn" style="background-color: #d1151e">Désactivé</a></td> 
-                @endif
-                    <td>
-                        <div class="action_btns d-flex justify-content-center">
-                        
-                            <a href="{{ route('detail_clients',['id'=>$table_clients->id]) }}"> <i class="fa-solid fa-eye"></i></a>
-
-
-                        </div>
-                    </td>
+                  
                 </tr> 
     @empty
         @if(isset($query))

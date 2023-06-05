@@ -78,6 +78,8 @@ use App\Http\Controllers\table_demande_controller;
 use App\Http\Controllers\table_camion_controller;
 use App\Http\Controllers\ajouter_conducteur_controller;
 use App\Http\Controllers\admin_auth_controller;
+use App\Http\Controllers\AdminAuthController;
+
 use App\Http\Controllers\ajouter_client_controller;
 use App\Http\Controllers\modifier_client_controller;
 
@@ -161,14 +163,18 @@ route::get('/chat',[chat_controller::class,'chat'])->name('chat');
 route::get('/Checkout',[Checkout_controller::class,'Checkout'])->name('Checkout');
 
 route::get('/color_plate',[color_plate_controller::class,'color_plate'])->name('color_plate');
-
-
 route::get('/colors',[colors_controller::class,'colors'])->name('colors');
-
 route::get('/dargable_card',[dargable_card_controller::class,'dargable_card'])->name('dargable_card');
-
 route::get('/dark_sidebar',[dark_sidebar_controller::class,'dark_sidebar'])->name('dark_sidebar');
 
+// Routes d'authentification pour l'administrateur
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    // ...
+});
+
+
+route::get('/detail_camion_proprio/{id}',[table_proprio_controller::class,'detail_camions_proprio'])->name('detail_camions_proprio');
+route::get('/detail_demandes5/{id}',[table_proprio_controller::class,'detail_demande_proprio'])->name('detail_demandes_proprio');
 route::get('/detail_proprio/{id}',[table_proprio_controller::class,'detail_proprio'])->name('detail_proprios');
 route::get('/table_proprio2',[table_proprio_controller::class,'modification_annuler'])->name('modification_annuler_proprio');
 route::get('/table_proprio',[table_proprio_controller::class,'table_proprio'])->name('table_proprios');
@@ -179,6 +185,8 @@ route::post('/modification_proprio/{id}', [table_proprio_controller::class, 'mod
 route::post('/ajouter_proprio',[table_proprio_controller::class,'ajouter_proprio'])->name('ajouter_proprios');
 
 
+
+route::get('/detail_client_demandes/{id}',[table_client_controller::class,'detail_client_demandes'])->name('detail_client_demandes');
 route::get('/detail_client/{id}',[table_client_controller::class,'detail_client'])->name('detail_clients');
 route::get('/table_client2',[table_client_controller::class,'modification_annuler'])->name('modification_annuler_client');
 route::get('/table_client',[table_client_controller::class,'table_client'])->name('table_client');
@@ -191,7 +199,12 @@ route::get('/supprimer_client/{id}',[table_client_controller::class,'delete'])->
 route::get('/table_proprio',[table_proprio_controller::class,'table_proprio'])->name('table_proprio');
 route::get('/recherche_proprio',[table_proprio_controller::class,'recherche_proprio'])->name('recherche_proprio');
 route::get('/ajouter_proprio',[table_proprio_controller::class,'ajouter_proprio'])->name('ajouter_proprios');
+route::get('/ajouter_proprio_form',[table_proprio_controller::class,'ajouter_proprio_form'])->name('ajouter_proprio_form');
 
+
+
+route::get('/detail_camions_conduc/{id}',[table_conducteur_controller::class,'detail_camions_conduc'])->name('detail_camions_conduc');
+route::get('/detail_proprios_conduc/{id}',[table_conducteur_controller::class,'detail_proprios_conduc'])->name('detail_proprios_conduc');
 route::get('/detail_conducteur/{id}',[table_conducteur_controller::class,'detail_conducteur'])->name('detail_conducteurs');
 route::get('/table_conducteur2',[table_conducteur_controller::class,'modification_annuler'])->name('modification_annuler_conducteur');
 route::get('/table_conducteur',[table_conducteur_controller::class,'table_conducteur'])->name('table_conducteur');
@@ -200,8 +213,14 @@ route::post('/modification_conducteur/{id}', [table_conducteur_controller::class
 route::get('/supprimer_conducteur/{id}',[table_conducteur_controller::class,'delete'])->name('supprimer_conducteurs');
 route::post('/recherche_conducteur',[table_conducteur_controller::class,'recherche_conducteur'])->name('recherche_conducteurs');
 route::post('/ajouter_conducteur',[table_conducteur_controller::class,'ajouter_conducteur'])->name('ajouter_conducteurs');
+route::get('/ajouter_conducteur_form',[table_conducteur_controller::class,'ajouter_conducteur_form'])->name('ajouter_conducteur_form');
 
 
+
+
+route::get('/detail_conducteurs_camion/{id}',[table_camion_controller::class,'detail_conducteurs_camion'])->name('detail_conducteurs_camion');
+route::get('/detail_proprios_camion/{id}',[table_camion_controller::class,'detail_proprios_camion'])->name('detail_proprios_camion');
+route::get('/detail_camion/{id}',[table_camion_controller::class,'detail_camion'])->name('detail_camions');
 route::get('/table_camion2',[table_camion_controller::class,'modification_annuler'])->name('modification_annuler_camion');
 route::get('/table_camion',[table_camion_controller::class,'table_camion'])->name('table_camion');
 route::get('/modifier_camion/{id}', [table_camion_controller::class, 'modifier_camion'])->name('modifier_camions');
@@ -209,18 +228,27 @@ route::post('/modification_camion/{id}', [table_camion_controller::class, 'modif
 route::get('/supprimer_camion/{id}',[table_camion_controller::class,'delete'])->name('supprimer_camions');
 route::post('/recherche_camion',[table_camion_controller::class,'recherche_camion'])->name('recherche_camions');
 route::get('/ajouter_camion',[table_camion_controller::class,'ajouter_camion'])->name('ajouter_camions');
+route::get('/ajouter_camion_form',[table_camion_controller::class,'ajouter_camion_form'])->name('ajouter_camion_form');
 
 
+route::get('/detail_demandes/{id}',[table_demande_controller::class,'detail_demandes'])->name('detail_demandes');
+route::get('/detail_demandes_client/{id}',[table_demande_controller::class,'detail_demandes_client'])->name('detail_demandes_client');
+route::get('/detail_demandes_camion/{id}',[table_demande_controller::class,'detail_demandes_camion'])->name('detail_demandes_camion');
 route::get('/modifier_demande/{id}',[table_demande_controller::class,'modifier_demande'])->name('modifier_demandes');
 route::get('/table_demande',[table_demande_controller::class,'table_demande'])->name('table_demande');
 route::get('/supprimer_demande/{id}',[table_demande_controller::class,'delete'])->name('supprimer_demandes');
 route::post('/recherche_demande',[table_demande_controller::class,'recherche_demande'])->name('recherche_demande');
 route::get('/ajouter_demande',[table_demande_controller::class,'ajouter_demande'])->name('ajouter_demandes');
+route::get('/ajouter_demande',[table_demande_controller::class,'ajouter_demande'])->name('ajouter_demandes');
+route::get('/ajouter_demande_form',[table_demande_controller::class,'ajouter_demande_form'])->name('ajouter_demande_form');
 
 
-Route::get('/admin/form', [admin_auth_controller::class, 'showLoginForm'])->name('admin.form');
-Route::get('/admin/login', [admin_auth_controller::class, 'login'])->name('admin.login');
-Route::get('/admin/logout', [admin_auth_controller::class, 'logout'])->name('admin.logout');
+
+    Route::get('/admin/form', [AdminAuthController::class, 'showLoginForm'])->name('admin.form');
+    Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin_login');
+    Route::get('/admin/logout', [admin_auth_controller::class, 'logout'])->name('admin.logout');
+    
+
 
 
 
@@ -268,7 +296,7 @@ route::get('/light_sidebar',[light_sidebar_controller::class,'light_sidebar'])->
 
 route::get('/Loading_Indicators',[Loading_Indicators_controller::class,'Loading_Indicators'])->name('Loading_Indicators');
 
-route::get('/login',[login_controller::class,'login'])->name('login');
+// route::get('/login',[login_controller::class,'login'])->name('login');
 
 route::get('/mail_box',[mail_box_controller::class,'mail_box'])->name('mail_box');
 

@@ -20,7 +20,11 @@ class table_proprio_controller extends Controller
         $table_proprio = DB::table('proprietaires')->get();
         return view('proprio.table_proprio', ['table_proprio' => $table_proprio]);
     }
-
+    public function ajouter_proprio_form(){
+       
+      
+        return view('proprio.ajouter_proprio');
+    }
 
     public function recherche_proprio(Request $request)
     {
@@ -45,6 +49,7 @@ public function delete($id)
 
 public function modifier_proprio($id){
     $proprio_modifie = Proprietaire::findOrFail($id);
+
     $table_proprio = DB::table('proprietaires')->get();
     return view('proprio.modifier_proprio',compact('proprio_modifie'));
    
@@ -127,7 +132,7 @@ public function modifier_proprio($id){
         
     }
 
-    $dateValidite=request('dateValidite');
+        $dateValidite=$request->input('dateValidite');
 
          $statut = $request->input('statut');
 
@@ -164,6 +169,36 @@ public function modifier_proprio($id){
         $conducteur= Camion::where('idConducteur', $id)->get();
         $table_proprio =Proprietaire::where('id', $id)->first();
         return view('proprio.detail_proprio',compact('proprio', 'conducteur', 'camion','table_proprio'));
+            
+
+    }
+    public function detail_camions_proprio($id){
+        $proprio = Proprietaire::where('id', $id)->first();
+        $camion = Camion::where('idProprio', $id)->get();
+        $conducteur= Camion::where('idConducteur', $id)->get();
+        $table_proprio =Proprietaire::where('id', $id)->first();
+        return view('proprio.detail_camion',compact('proprio', 'conducteur', 'camion','table_proprio'));
+            
+
+    }
+
+    public function detail_demande_proprio($id){
+        $camion=Camion::where('idProprio',$id)->get();
+      
+        foreach($camion as $camions){
+             $idconducteur=$camions->idConducteur;
+             $conducteur=Conducteur::where('id',$idconducteur);
+             $idCamion=Camion::where('id',$conducteur);
+             
+              
+
+        }
+      
+        $proprio = Proprietaire::where('id', $id)->first();
+        $camion = Camion::where('idProprio', $id)->get();
+        $conducteur= Camion::where('idConducteur', $id)->get();
+        $table_proprio =Proprietaire::where('id', $id)->first();
+        return view('proprio.detail_camion',compact('proprio', 'conducteur', 'camion','table_proprio'));
             
 
     }

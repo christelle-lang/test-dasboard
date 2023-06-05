@@ -1,7 +1,4 @@
-
-
 @include('..header')
-
 
 
 <div class="main_content_iner ">
@@ -41,23 +38,26 @@
        </div>
        </form>
        <div class="QA_table mb_30">
+    
            @if(isset($table_demande) && isset($query))
            <h3>Résultats pour la recherche "{{ $query }}"</h3>
            <br>
-       @endif
+           @endif
        
        @php
            $headersDisplayed = false;
        @endphp
        
-       @forelse ($table_demande as $table_demandes)
+       @forelse ($table_demande->reverse() as $table_demandes)
            @if (!$headersDisplayed)
                <table class="table lms_table_active3 table-hover ">
                    <thead>
                        <tr>
-                           <th scope="col">idDemande</th>
-                           <th scope="col">idClient</th>
-                           <th scope="col">idCamion</th>
+                        <th scope="col"></th>
+
+                      
+                        <th scope="col">#</th>
+
                            <th scope="col">poidsMarchandise</th>
                            <th scope="col">lieuEnlevement</th>
                            <th scope="col">lieuDestination</th>
@@ -75,26 +75,38 @@
                    @endphp
            @endif
                    <tr>
+                          
+                
+                    <td>
+                        <!-- Code du cercle de notification -->
+                        @if ($table_demandes->newDemande == 0)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 17.71 18.595">
+                                <g id="bell" transform="translate(0 -64)">
+                                    <circle id="circle" cx="8.855" cy="71.762" r="4.875" fill="#D3D3D3"/>
+                                    <text id="text" x="8.855" y="74.5" fill="#000000" font-size="6" font-family="Arial" text-anchor="middle">1</text>
+                                </g>
+                            </svg>
+                        @endif
+                    </td>
                        <td>{{ $loop->index + 1 }}</td>
-                       <td>{{ $table_demandes->idClient }}</td>
-                       <td>{{ $table_demandes->idCamion }}</td>
+               
                        <td>{{ $table_demandes->poidsMarchandise }}</td>
                        <td>{{ $table_demandes->lieuEnlevement }}</td>
                        <td>{{ $table_demandes->lieuDestination }}</td>
                        <td>{{ $table_demandes->dateEnlevement }}</td>
                        <td>{{ $table_demandes->typeMarchandise }}</td>
                        <td>{{ $table_demandes->descriptionMarchandise }}</td>
-                       @if ($table_demandes->statut == 'Activé')
-                       <td><a href="#" class="status_btn">Activé</a></td> 
+                       @if ($table_demandes->statut == 'nvlle demande')
+                       <td><a href="#" class="status_btn"  style="background-color: orange ">{{$table_demandes->statut}}</a></td> 
                           @else 
                       <td><a href="#" class="status_btn" style="background-color: #d1151e">Désactivé</a></td> 
                       @endif
-                   
-
+                    
                        <td>
                         <div class="action_btns d-flex">
                             <a href="{{ route('modifier_demandes',['id'=>$table_demandes->id]) }}" class="action_btn"> <i class="far fa-edit"></i> </a>
-                            <a href="{{ route('supprimer_demandes',['id'=>$table_demandes->id]) }}" class="action_btn mr_10 "> <i class="fas fa-trash"></i> </a>
+                            <a href="{{ route('supprimer_demandes',['id'=>$table_demandes->id]) }}" class="action_btn  "> <i class="fas fa-trash"></i> </a>
+                            <a href="{{ route('detail_demandes',['id'=>$table_demandes->id]) }}" class="action_btn  "> <i class="fa-solid fa-eye"></i></a>
 
                         </div>
                        </td>
@@ -196,9 +208,14 @@
                        
                         <div class="common_select mb_15">
                           <select class="custom-select custom-select-lg  mb_15" id="inlineFormCustomSelectPref" name="statut">
-                            <option selected value="">Statut</option>
-                            <option value="Activé">Activé</option>
-                            <option value="Désactivé">Désactivé</option>
+                            <option selected value="">type de la marchandise</option>
+                            <option value="citerne">camion citerne</option>
+                            <option value="benne">camion benne</option>
+                            <option value="fourgon">camion fourgon</option>
+                            <option value="plateau">camion plateau</option>
+                            <option value="frigorifique">camion frigorifique</option>
+                            <option value="sémi-remorque">camion sémi-remorque</option>
+                
                           </select>  
                         </div> 
                     </div> 

@@ -10,25 +10,27 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{asset('css_login/style.css')}}">
 
 	</head>
+	@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 	<body>
 	<section class="ftco-section">
 		<div class="container">
-			{{-- <div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-				</div>
-			</div> --}}
+		
 			<div class="row justify-content-center">
 				<div class="col-md-12 col-lg-10">
-					<div class="wrap d-md-flex ">
-						<div class="img img-fluid" style="background-image: url(img/undraw_Data_trends_re_2cdy.png);background-size: contain;">
+					<div class="wrap d-md-flex">
+						<div class="img" style="background-image: url(img/undraw_Data_trends_re_2cdy.png">
 			      </div>
 						<div class="login-wrap p-4 p-md-5">
 			      	<div class="d-flex">
 			      		<div class="w-100">
-			      			<h2 class="mb-4 titre">TransExpress</h2>
+			      			<h3 class="mb-4">Sign In</h3>
 			      		</div>
 								<div class="w-100">
 									<p class="social-media d-flex justify-content-end">
@@ -37,32 +39,31 @@
 									</p>
 								</div>
 			      	</div>
-							<form action="{{route('admin.login')}}" class="signin-form">
+							<form action="{{route('admin_login')}}" method="post" class="signin-form">
 			      		<div class="form-group mb-3">
-			      			<label class="label" for="name">Email</label>
-			      			<input type="text" class="form-control" placeholder="Email" required>
+			      			<label class="label" for="email">Email</label>
+			      			<input type="email" class="form-control" placeholder="email" required>
 			      		</div>
 		            <div class="form-group mb-3">
-		            	<label class="label" for="password">Mot de passe</label>
-		              <input type="password" class="form-control" placeholder="Mot De passe" required>
+		            	<label class="label" for="password">Password</label>
+		              <input type="password" class="form-control" placeholder="Password" required>
 		            </div>
 		            <div class="form-group">
-		            	<input type="submit" class="form-control btn btn-primary rounded submit px-3" value="Se connecter">
+		            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
 		            </div>
-                  </form>
 		            <div class="form-group d-md-flex">
 		            	<div class="w-50 text-left">
-			            	<label class="checkbox-wrap checkbox-primary mb-0">souviens toi de moi
+			            	<label class="checkbox-wrap checkbox-primary mb-0">Remember Me
 									  <input type="checkbox" checked>
 									  <span class="checkmark"></span>
 										</label>
 									</div>
 									<div class="w-50 text-md-right">
-										<a href="#">Mot de passe oublié?</a>
+										<a href="#">Forgot Password</a>
 									</div>
 		            </div>
-		          
-		          <p class="text-center">Vous n'avez pas de compte? <a class="text" data-toggle="tab" href="#signup">Inscrivez-vous</a></p>
+		          </form>
+		          <p class="text-center">Not a member? <a data-toggle="tab" href="#signup">Sign Up</a></p>
 		        </div>
 		      </div>
 				</div>
@@ -70,10 +71,10 @@
 		</div>
 	</section>
 
-	<script src="js/jquery.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
+	<script src="js_login/jquery.min.js"></script>
+  <script src="js_login/popper.js"></script>
+  <script src="js_login/bootstrap.min.js"></script>
+  <script src="js_login/main.js"></script>
 
 	</body>
 </html>

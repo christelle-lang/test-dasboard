@@ -52,8 +52,6 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Propriétaire</th>
-                        <th scope="col">idConducteur</th>
                         <th scope="col">Type </th>
                         <th scope="col">caractéristique </th>
                         <th scope="col">Capacité de charge </th>
@@ -72,8 +70,6 @@
         @endif
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>
-                    <td>{{ $table_camions->idProprio }}</td>
-                    <td>{{ $table_camions->idConducteur }}</td>
                     <td>{{ $table_camions->typeCamion }}</td>
                     <td>{{ $table_camions->caractéristiqueCamion }}</td>
                     <td>{{ $table_camions->capaciteDeCharge }}</td>
@@ -89,7 +85,8 @@
                     <td>
                         <div class="action_btns d-flex">
                         <a href="{{ route('modifier_camions',['id'=>$table_camions->id]) }}" class="action_btn"> <i class="far fa-edit"></i> </a>
-                        <a href="{{ route('supprimer_camions',['id'=>$table_camions->id]) }}" class="action_btn mr_10 "> <i class=" fas fa-trash"></i> </a>
+                        <a href="{{ route('supprimer_camions',['id'=>$table_camions->id]) }}" class="action_btn "> <i class=" fas fa-trash"></i> </a>
+                        <a href="{{ route('detail_camions',['id'=>$table_camions->id]) }}" class="action_btn  "> <i class="fa-solid fa-eye"></i></a>
 
                        </div>
                     </td>

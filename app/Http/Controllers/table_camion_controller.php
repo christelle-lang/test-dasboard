@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Camion;
+use App\Models\Proprietaire;
+use App\Models\Conducteur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +17,11 @@ class table_camion_controller extends Controller
     return view('camion.table_camion', $data);
 }
 
+public function ajouter_camion_form(){
+       
+      
+    return view('camion.ajouter_camion');
+}
 
 public function recherche_camion(Request $request)
 {
@@ -102,5 +109,30 @@ public function modification_camion(Request $request,$id) {
 
        return redirect()->route('table_camion');
 
+}
+public function detail_camion($id){
+    $table_camion = Camion::where('id', $id)->first();
+    $idProprio=$table_camion->idProprio;
+    $proprio=Proprietaire::where('id',$idProprio)->first();
+    $idConducteur=$table_camion->idConducteur;
+    $conducteur=Conducteur::where('id',$idConducteur)->first();
+    return view("camion.detail_camion",compact('table_camion','proprio','conducteur'));
+}
+public function detail_proprios_camion($id){
+    $table_camion = Camion::where('id', $id)->first();
+    $idProprio=$table_camion->idProprio;
+    $proprio=Proprietaire::where('id',$idProprio)->first();
+    $idConducteur=$table_camion->idConducteur;
+    $conducteur=Conducteur::where('id',$idConducteur)->first();
+    return view("camion.detail_camion_proprio",compact('table_camion','proprio','conducteur'));
+}
+public function detail_conducteurs_camion($id){
+    $table_camion = Camion::where('id', $id)->first();
+    $idProprio=$table_camion->idProprio;
+    $proprio=Proprietaire::where('id',$idProprio)->first();
+    $idConducteur=$table_camion->idConducteur;
+    $conducteur=Conducteur::where('id',$idConducteur)->first();
+   
+    return view("camion.detail_camion_conducteur",compact('table_camion','proprio','conducteur'));
 }
 }

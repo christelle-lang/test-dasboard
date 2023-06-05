@@ -62,7 +62,7 @@
                                 </div>
                                  <div class="col-lg-6">
                                 <div class="common_input mb_15">
-                                <input type="text" placeholder="Date de validité CNI"  name="dateValidite">
+                                <input type="text" placeholder="Date de validité CNI"  name="dateValidite" value="{{ $proprio_modifie->dateValidite}}">
                                 </div>
                                 </div> 
                                 
@@ -71,7 +71,6 @@
                        
                                     <div class="common_select mb_15">
                                       <select class="custom-select custom-select-lg  mb_15" id="inlineFormCustomSelectPref" name="statut">
-                                        <option  value="">Statut</option>
                                         <option {{$proprio_modifie->statut=='Activé' ? 'selected':''}} value="Activé">Activé</option>
                                         <option  {{$proprio_modifie->statut=='Désactivé' ? 'selected':''}} value="Désactivé">Désactivé</option>
                                       </select>  

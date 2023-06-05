@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.71" height="18.595" viewBox="0 0 17.71 18.595">
+  <g id="bell" transform="translate(0 -64)">
+    <circle id="circle" cx="8.855" cy="71.762" r="4.875" fill="#ffffff"/>
+    <text id="text" transform="translate(8.855 76.129)" fill="#000000" font-size="9" font-family="Arial" text-anchor="middle">{{ $variable }}</text>
+  </g>
+</svg>

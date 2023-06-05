@@ -5,7 +5,9 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
  
- :root {
+ 
+
+  :root {
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -8209,7 +8211,7 @@
   .login-wrap {
     position: relative;
     background: #fff h3;
-      background-font-weight: 300; }
+    background-font-weight: 300; }
   
   .form-group {
     position: relative; }

@@ -111,13 +111,21 @@ class table_client_controller extends Controller
 //     return redirect()->route('table_client');
    
 //     }
+public function detail_client($id){
+    $table_client = Client::where('id', $id)->first();
+    $idClient = $table_client->id;
+    $client = Client::find($idClient);
 
+    return view("client.detail_client",compact('client'));
+}
 
     
-    public function detail_client($id){
+    public function detail_client_demandes($id){
+        $table_client = Client::where('id', $id)->first();
+        $idClient = $table_client->id;
+        $client = Client::find($idClient);
     $table_client = DB::table('clients')->get();
     $demande = Demande::where('idClient', $id)->get();
-    $client = Client::where('id', $id)->first();
         if ($demande) {
             $informations = [];
             foreach ($demande as $demandes) {
@@ -130,57 +138,30 @@ class table_client_controller extends Controller
 
                 ];
                
-         
+            
             
             $idCamion = $demandes->idCamion;
-            $idClient = $client->id;
             $camion = Camion::find($idCamion);
-            $client = Client::find($idClient);
 
         
             if ($camion) {
                 $typeCamion = $camion->typeCamion;
        
-                return view('client.detail_client', compact('informations', 'typeCamion','client','table_client'));
+                return view('client.detail_demande', compact('informations', 'typeCamion','table_client','client'));
 
             }
-            else{
-                return redirect()->back()->with('error', 'Le camion correspondant n\'a pas été trouvé.');
-
-             }
-
+           
         }
            
     
-    
-        } else {
-            return redirect()->back()->with('error', 'Aucune demande trouvée pour l\'ID du client donné.');
-    }
-
-    
-
-
-    if ($demande->isNotEmpty()) {
-        $informations = [];
-        foreach ($demande as $demandes) {
-            $informations[] = [
-                 'idCamion' => $demandes->poidsMarchandise,
-                'lieuEnlevement' => $demandes->lieuEnlevement,
-                'lieuDestination' => $demandes->lieuDestination,
-                'dateEnlevement' => $demandes->dateEnlevement,
-                'typeMarchandise' => $demandes->typeMarchandise,
-
-            ];
-
-        }
-        
         // Faites ce que vous voulez avec les informations de la demande
    
-        return view('client.detail_client', compact('informations'));
+        return view('client.detail_demande', compact('informations','client'));
     }
         else {
             // Gérez le cas où aucune demande n'est trouvée pour l'ID du client donné
-            return redirect()->back()->with('error', 'Aucune demande trouvée pour l\'ID du client donné.');
+            return redirect()->route('detail_demandes',['id' => $id])->with('error', 'Aucune demande trouvée pour l\'ID du client donné.');
         }
-    }
+    
+}
 }

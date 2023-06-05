@@ -24,34 +24,44 @@
                     <div class="page_title_right">
                         <div class="page_date_button d-flex align-items-center">
                             <img src="img/icon/calender_icon.svg" alt="">
-                            Thursday 11 May 2023 11:45:58
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="">
+            <ul class="nav nav-tabs justify-content-center ">
+                <li class="nav-item ">
+                  <a class="nav-link {{ Request::route()->getName() == 'detail_proprios' ? 'active' : ''}}  "  href="{{route('detail_proprios',['id' => $proprio->id])}}">Propriétaire</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {{ Request::route()->getName() == 'detail_camions_proprio' ? 'active' : ''}} " href="{{route('detail_camions_proprio',['id' => $proprio->id])}}">Camion</a>
+                </li>
+            
+              </ul>
+            </div>  
                 
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-12 QA_section">
                 <div class="card QA_table">
                     <div class="card-body">
                         <div class="row mb-4">
-                            <div class="main-title d-flex justify-content-between w-100">
-                                <h4 class="m-0">Informations du client</h4>
-                            </div>
+                            <div class="card-header">
+                                Information du propriétaire
+                              </div>
                             <div class="col-sm-5 mt-4">
                                 <div>Nom: {{$proprio->nomProprio}}</div>
-                                <hr>
+                            
                                 <div>Prénoms: {{$proprio->prenomProprio}}</div>
-                                <hr>
+                            
                                 <div>Email: {{$proprio->emailProprio}}</div>
-                                <hr>
+                            
                                 <div>Numéro 1: {{$proprio->numTelProprio}}</div>
-                                <hr>
+                            
                                 <div>Numéro 2: {{$proprio->numTelProprio2}}</div>
-                                <hr>
+                            
                                 <div>Statut: {{$proprio->statut}}</div>
-                                <hr>
+                            
                             </div>
                             <div class="col-sm-1 mt-4">
                             </div> 
@@ -62,10 +72,10 @@
                                         @foreach(json_decode($table_proprio->photoCNI) as $img)
                                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                             <div class="card" style="width: 18rem;">
-                                                <h4>Pièce d'identité</h4>
+                                                <p>Pièce d'identité</p>
                                                 <img src="{{ asset($img) }}" class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <p class="card-text">Date de validité: {{$proprio->dateValidite}}</p>
+                                                    <p class="card-text">Date d'expiration: {{$proprio->dateValidite}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,69 +96,7 @@
                             </div>
                         </div>
 
-                        <div class="card-header" style="background-color: #ad83f0">
-                            Récapitulatif
-                        </div>
-
-                        <div class="white_card card_height_100">
-                            <div class="white_card_header">
-                                <div class="box_header m-0">
-                                    <div class="main-title d-flex justify-content-between w-100">
-                                        <h4 class="m-0 float-start">Liste des camions et des conducteurs du propriétaire</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="white_card_body table-responsive">
-                                <div class="QA_section">
-                                    <div class="white_box_tittle list_header">
-                                        <div class="box_right d-flex lms_block">
-                                            <div class="search_field_2">
-                                                <div class="search_inner">
-                                                    @if ($camion->isNotEmpty())
-                                                    <div class="QA_table mb_30">
-                                                        <table class="table lms_table_active3 table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Id du camion</th>
-                                                                    <th>Lieu d'enlèvement</th>
-                                                                    <th>Lieu destination</th>
-                                                                    <th>Date d'enlèvement</th>
-                                                                    <th>Type de camion</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach ($camion as $camions)
-                                                                <tr>
-                                                                    <td scope="col">{{ $loop->iteration }}</td>
-                                                                    <td scope="col">{{ $camions['typeCamion'] }}</td>
-                                                                    <td scope="col">{{ $camions['caractéristiqueCamion'] }}</td>
-                                                                    <td scope="col">{{ $camions['numImmatriculation'] }}</td>
-                                                                    <td scope="col">{{ $camions['capaciteDeCharge'] }}</td>
-                                                                </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    @else
-                                                    <p>Aucun camion trouvé pour l'ID du client donné.</p>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
+                    
             <div class="footer_part">
                 <div class="container-fluid">
                 <div class="row">
@@ -166,6 +114,3 @@
     
                            
     @include('..footer')
-
-
-

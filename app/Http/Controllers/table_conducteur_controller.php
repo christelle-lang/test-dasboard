@@ -18,6 +18,12 @@ class table_conducteur_controller extends Controller
         return view('conducteur.table_conducteur', ['table_conducteur' => $table_conducteur]);
     }
 
+    public function ajouter_conducteur_form(){
+       
+      
+        return view('conducteur.ajouter_conducteur');
+    }
+
 
     public function recherche_conducteur(Request $request)
     {
@@ -114,7 +120,6 @@ public function modifier_conducteur($id){
         $emailConducteur=$request->input('email');
         $numtelConducteur=$request->input('number1');    
         $numPermis=$request->input('numPermis');
-        $motDePasseConducteur=$request->input('password');
         $statut=$request->input('statut');
         
          DB::table('conducteurs')
@@ -126,7 +131,6 @@ public function modifier_conducteur($id){
                  'numtelConducteur' => $numtelConducteur,
                  'numTelConducteur2' => $request->input('number2') ?: null,
                  'numPermis' => $numPermis,
-                 'motDePasseConducteur' =>bcrypt($motDePasseConducteur) ,
                  'statut' => $statut,
             
              ]);
@@ -141,21 +145,15 @@ public function modifier_conducteur($id){
    
     }
     public function detail_conducteur($id){
+
+       
+
         $table_conducteur = Conducteur::where('id', $id)->first();
   
-        if (!$table_conducteur) {
-            // Gérer l'exception lorsque le conducteur n'existe pas
-            // Par exemple, renvoyer un message d'erreur ou rediriger vers une autre page
-            return redirect()->back()->with('error', 'Le conducteur spécifié n\'existe pas.');
-        }
     
         $camion = Camion::where('idConducteur', $id)->get();
     
-        if ($camion->isEmpty()) {
-            // Gérer l'exception lorsque le camion n'existe pas pour ce conducteur
-            // Par exemple, renvoyer un message d'erreur ou afficher une vue avec un message approprié
-            return redirect()->back()->with('error', 'Le conducteur spécifié n\'est pas associé à un camion.');
-        }
+       
     
         $conducteur = Camion::where('idConducteur', $id)->get();
         foreach($conducteur as $conducteurs){
@@ -166,14 +164,59 @@ public function modifier_conducteur($id){
         $proprio = Proprietaire::find($idProprio);
         $proprios[]=  $proprio;
    
-        }
-        if (!$proprios) {
-            // Gérer l'exception lorsque le propriétaire n'est pas trouvé
-            // Par exemple, renvoyer un message d'erreur ou afficher une vue avec un message approprié
-            return redirect()->back()->with('error', 'Le conducteur spécifié n\'est pas associé à un propriétaire.');
-        }
+        
+      
     
         return view('conducteur.detail_conducteur', compact('camion', 'conducteur', 'proprios', 'table_conducteur'));
     }
+    }
+    public function detail_camions_conduc($id){
 
+       
+
+        $table_conducteur = Conducteur::where('id', $id)->first();
+  
+        $camion = Camion::where('idConducteur', $id)->first();
+    
+    
+        $conducteur = Camion::where('idConducteur', $id)->get();
+        foreach($conducteur as $conducteurs){
+       
+       
+        $idProprio = $conducteurs['idProprio'];
+       
+        $proprio = Proprietaire::find($idProprio);
+        $proprios[]=  $proprio;
+   
+
+    
+        return view('conducteur.detail_camion', compact('camion', 'conducteur', 'proprios', 'table_conducteur'));
+    }
+
+    }
+    public function detail_proprios_conduc($id){
+
+       
+
+        $table_conducteur = Conducteur::where('id', $id)->first();
+  
+       
+        $camion = Camion::where('idConducteur', $id)->get();
+      
+      
+        $conducteur = Camion::where('idConducteur', $id)->get();
+        foreach($conducteur as $conducteurs){
+       
+       
+        $idProprio = $conducteurs['idProprio'];
+       
+        $proprio = Proprietaire::find($idProprio);
+        $proprios[]=  $proprio;
+   
+        
+      
+        return view('conducteur.detail_proprio', compact('camion', 'conducteur', 'proprios', 'table_conducteur'));
+    }
+
+    }
 }

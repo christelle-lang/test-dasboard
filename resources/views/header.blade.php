@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -65,15 +66,24 @@
     <img src="{{asset('img/menu-icon/dashboard.svg')}}" alt>
     </div>
 
-    <div class="nav_title">
-        <span>Tables </span>
+
+    @php 
+use App\Models\Demande;
+
+
+             $nombreNouvellesDemandes = Demande::where('newDemande', 0)->count();
+
+    @endphp
+    {{-- <div class="nav_title">
+      
+        <span>Utilisateurs </span>
         </div>
         </a>
         <ul>
             <li><a href="{{route('table_client')}}">Clients</a></li>
             <li><a href="{{route('table_proprio')}}">Propriétaires</a></li>
             <li><a href="{{route('table_conducteur')}}">Conducteurs</a></li>
-            <li><a href="{{route('table_demande')}}">Demandes</a></li>
+            <li><a href="{{route('table_demande')}}"></a></li>
             <li><a href="{{route('table_camion')}}"> Camion</a></li>
 
         </ul>
@@ -82,10 +92,92 @@
         <a class="has-arrow" href="#" aria-expanded="false">
         <div class="nav_icon_small">
         <img src="{{asset('img/menu-icon/2.svg')}}" alt>
-        </div>
+        </div> --}}
 
 
         <div class="nav_title">
+            <span>Clients</span>
+            </div>
+            </a>
+            <ul>
+            <li><a href="{{route('table_client')}}">Liste des clients</a></li>
+            </ul>
+            </li>
+            <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+            <div class="nav_icon_small">
+            <img src="{{asset('img/menu-icon/11.svg')}}" alt>
+            </div>
+             <div class="nav_title">
+
+            <span>Propriétaires</span>
+            </div>
+            </a>
+            <ul>
+            <li><a href="{{route('table_proprio')}}">Liste des propriétaires</a></li>
+            <li><a href="{{route('ajouter_proprio_form')}}">Ajouter propriétaire</a></li>
+            </ul>
+            </li>
+            <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+            <div class="nav_icon_small">
+            <img src="{{asset('img/menu-icon/11.svg')}}" alt>
+            </div>
+
+             <div class="nav_title">
+            <span>Conducteurs</span>
+            </div>
+            </a>
+            <ul>
+            <li><a href="{{route('table_conducteur')}}">Liste des conducteurs</a></li>
+            <li><a href="{{route('ajouter_conducteur_form')}}">Ajouter conducteur</a></li>
+            </ul>
+            </li>
+            <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+            <div class="nav_icon_small">
+            <img src="{{asset('img/menu-icon/11.svg')}}" alt>
+            </div>
+
+             <div class="nav_title">
+            <span>Camions</span>
+            </div>
+            </a>
+            <ul>
+            <li><a href="{{route('table_camion')}}">Liste des camions</a></li>
+            <li><a href="{{route('ajouter_camion_form')}}">Ajouter camion</a></li>
+            </ul>
+            </li>
+            <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+            <div class="nav_icon_small">
+            <img src="{{asset('img/menu-icon/11.svg')}}" alt>
+            </div>
+
+             <div class="nav_title">
+                @if ($nombreNouvellesDemandes > 0)
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 17.71 18.595">
+                    <g id="bell" transform="translate(0 -64)">
+                      <circle id="circle" cx="8.855" cy="71.762" r="4.875" fill="#D3D3D3"/>
+                      <text id="text" x="8.855" y="74.5" fill="#000000" font-size="6" font-family="Arial" text-anchor="middle">{{ $nombreNouvellesDemandes }}</text>
+                    </g>
+                  </svg>
+                @endif
+            <span>Demandes</span>
+            </div>
+            </a>
+            <ul>
+            <li><a href="{{route('table_demande')}}"> Liste des demandes</a></li>
+            <li><a href="{{route('ajouter_demande_form')}}">Ajouter demande</a></li>
+            </ul>
+            </li>
+            {{-- <li class>
+            <a class="has-arrow" href="#" aria-expanded="false"> --}}
+            {{-- <div class="nav_icon_small">
+            <img src="{{asset('img/menu-icon/11.svg')}}" alt>
+            </div> --}}
+
+             {{-- <div class="nav_title">
             <span>Admins</span>
             </div>
             </a>
@@ -122,7 +214,7 @@
                 <a class="has-arrow" href="#" aria-expanded="false">
                 <div class="nav_icon_small">
                 <img src="{{asset('img/menu-icon/21.svg')}}" alt>
-                </div>
+                </div> --}}
 
         </nav>
     {{-- <div class="nav_title">
@@ -483,7 +575,7 @@
         <div class="line_icon open_miniSide d-none d-lg-block">
         <img src="{{asset('img/line_img.png')}}" alt>
         </div>
-        <div class="serach_field-area d-flex align-items-center">
+        {{-- <div class="serach_field-area d-flex align-items-center">
         <div class="search_inner">
         <form action="#">
         <div class="search_field">
@@ -492,19 +584,19 @@
         <button type="submit"> <img src="{{asset('img/icon/icon_search.svg')}}" alt> </button>
         </form>
         </div>
-        </div>
+        </div> --}}
         <div class="header_right d-flex justify-content-between align-items-center">
         <div class="header_notification_warp d-flex align-items-center">
         <li>
         <a class="bell_notification_clicker" href="#"> <img src="{{asset('img/icon/bell.svg')}}" alt>
-        <span>2</span>
+        <span>{{$nombreNouvellesDemandes}}</span>
         </a>
         
-        <div class="Menu_NOtification_Wrap">
+        {{-- <div class="Menu_NOtification_Wrap">
         <div class="notification_Header">
         <h4>Notifications</h4>
-        </div>
-        <div class="Notification_body">
+        </div> --}}
+        {{-- <div class="Notification_body">
         
         <div class="single_notify d-flex align-items-center">
         <div class="notify_thumb">
@@ -571,11 +663,11 @@
         <a href="#" class="btn_1">See More</a>
         </div>
         </div>
-        </div>
+        </div> --}}
         
         </li>
         <li>
-        <a class="CHATBOX_open" href="#"> <img src="{{asset('img/icon/msg.svg')}}" alt> <span>2</span> </a>
+        {{-- <a class="CHATBOX_open" href="#"> <img src="{{asset('img/icon/msg.svg')}}" alt> <span>2</span> </a>
         </li>
         </div>
         <div class="profile_info">
@@ -588,7 +680,7 @@
         <div class="profile_info_details">
         <a href="#">My Profile </a>
         <a href="#">Settings</a>
-        <a href="#">Log Out </a>
+        <a href="#">Log Out </a> --}}
         </div>
         </div>
         </div>

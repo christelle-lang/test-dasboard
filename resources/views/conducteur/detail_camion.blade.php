@@ -29,10 +29,10 @@
                 </div>
             </div>
         </div>
-      <div class="">
+        <div class="">
             <ul class="nav nav-tabs justify-content-center ">
                 <li class="nav-item ">
-                  <a class="nav-link {{ Request::route()->getName() == 'detail_conducteurs' ? 'active' : ''}}  "  href="{{route('detail_conducteurs',['id' => $table_conducteur->id])}}">Conducteur</a>
+                  <a class="nav-link {{ Request::route()->getName() == 'detail_conducteurs' ? 'active' : ''}}  "  href="{{route('detail_conducteurs',['id' => $table_conducteur->id])}}">Coonducteur</a>
                 </li>
                     
 
@@ -49,7 +49,6 @@
                   
               </ul>
             </div>   
-                
         <div class="row mt-4">
             <div class="col-12 QA_section">
                 <div class="card QA_table">
@@ -69,7 +68,7 @@
                                 <div>Numéro 2: {{$table_conducteur->numTelConducteur2}}</div>
                                 
                                 <div>Statut: {{$table_conducteur->statut}}</div>
-                
+                                
                             </div>
               
                             <div class="col-sm-4 mt-4">
@@ -133,10 +132,36 @@
                                      <p>Il n'y a pas de permis enregistrée</p>
                                    @endif
                                 </div>   
+
                                    </div>
                                    </div>   
                                    
-                        
+                                   @if ($camion)
+                                  
+                               
+                                    <div class="row mt-5">
+                                        <div class="col-12 QA_section">
+                                        <div class="card QA_table ">
+                                       
+                                        <div class="card-body">
+                                        <div class="row mb-4">
+                                            <div class="card-header">
+                                                Information du camion
+                                        <strong></strong>
+                                        </div>
+                                        <div>Type du camion: {{$camion->typeCamion}}</div>
+                                        <div>Caractéristique du camion: {{$camion->caractéristiqueCamion}}</div>
+                                        
+                                        <div>Numérod'immatriculation: {{$camion->numImmatriculation}}</div>
+                                        <div>Capacité de charge: {{$camion->capaciteDeCharge}}</div>
+                                        <div>Photo du camion: {{$camion->photoCamion}} </div>
+                                        <div>Statut: {{$camion->statut}} </div>
+                                    
+                                        </div>
+                                 </div>
+                               @else
+                                   <p>Aucune demande trouvée pour l'ID du client donné.</p>
+                               @endif
                            
                            
 
@@ -154,14 +179,14 @@
 
 
 
-
-
-
-
-
-
-
 {{-- 
+
+
+
+
+
+
+
 
 
 
@@ -191,7 +216,7 @@
 <div class="d-flex justify-content-center ">
     <div >
 @if (!empty($table_conducteur))
-     --}}
+    
     {{-- @foreach( json_decode($table_proprio->photoCNI) as $img) --}}
     {{-- @if (!empty($table_conducteur->photoCNI))  
     <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
